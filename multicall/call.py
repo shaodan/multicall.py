@@ -28,11 +28,8 @@ class Call:
     def decode_output(self, output):
         decoded = self.signature.decode_data(output)
         if self.returns:
-            return {
-                name: handler(value) if handler else value
-                for (name, handler), value
-                in zip(self.returns, decoded)
-            }
+            return [handler(value) if handler else value
+                    for handler, value in zip(self.returns, decoded)]
         else:
             return decoded if len(decoded) > 1 else decoded[0]
 

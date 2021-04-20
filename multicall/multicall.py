@@ -24,7 +24,7 @@ class Multicall:
         )
         args = [[[call.target, call.data] for call in self.calls]]
         block, outputs = aggregate(args)
-        result = {}
+        result = []
         for call, output in zip(self.calls, outputs):
-            result.update(call.decode_output(output))
+            result.append(call.decode_output(output))
         return result
